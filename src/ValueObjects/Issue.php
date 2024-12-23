@@ -10,12 +10,11 @@ namespace Peck\ValueObjects;
 final readonly class Issue
 {
     /**
-     * Creates a new instance of Issue.
-     *
-     * @param  array<int, string>  $suggestions
+     * Creates a new instance of FsIssue
      */
     public function __construct(
-        public string $word,
-        public array $suggestions,
+        public Misspelling $misspelling,
+        public string $file,
+        public int $line,
     ) {}
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Peck\Services\Spellcheckers;
 
 use Peck\Contracts\Services\Spellchecker;
-use Peck\ValueObjects\Issue;
+use Peck\ValueObjects\Misspelling;
 use PhpSpellcheck\MisspellingInterface;
 use PhpSpellcheck\Spellchecker\Aspell;
 
@@ -33,13 +33,13 @@ final readonly class InMemorySpellchecker implements Spellchecker
     /**
      * Checks of issues in the given text.
      *
-     * @return array<int, Issue>
+     * @return array<int, Misspelling>
      */
     public function check(string $text): array
     {
         $misspellings = $this->aspell->check($text);
 
-        return array_map(fn (MisspellingInterface $misspelling): Issue => new Issue(
+        return array_map(fn (MisspellingInterface $misspelling): Misspelling => new Misspelling(
             $misspelling->getWord(),
             array_slice($misspelling->getSuggestions(), 0, 4),
         ), iterator_to_array($misspellings));
