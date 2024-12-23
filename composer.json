@@ -1,5 +1,5 @@
 {
-    "name": "nunomaduro/skeleton-php",
+    "name": "peck-php/peck",
     "description": "A skeleton repository for my packages",
     "keywords": ["php", "skeleton", "package"],
     "license": "MIT",
@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "php": "^8.3.0"
+        "php": "^8.3.0",
+        "tigitz/php-spellchecker": "^0.7.0"
     },
     "require-dev": {
         "laravel/pint": "^1.18.1",
@@ -22,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NunoMaduro\\SkeletonPhp\\": "src/"
+            "Peck\\": "src/"
         }
     },
     "autoload-dev": {
