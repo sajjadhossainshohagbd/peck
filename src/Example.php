@@ -9,7 +9,7 @@ namespace NunoMaduro\SkeletonPhp;
  */
 final class Example
 {
-    public function getName(): string
+    public function foo(): string
     {
         return 'bar';
     }
