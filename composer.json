@@ -1,7 +1,7 @@
 {
-    "name": "peck-php/peck",
-    "description": "A skeleton repository for my packages",
-    "keywords": ["php", "skeleton", "package"],
+    "name": "peckphp/peck",
+    "description": "Peck is a CLI tool that detects wording / or spelling mistakes in your codebase.",
+    "keywords": ["php", "spelling", "checker"],
     "license": "MIT",
     "authors": [
         {
