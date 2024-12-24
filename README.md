@@ -10,17 +10,17 @@
 </p>
 
 ------
-**Peck** is a CLI tool that detects wording / or spelling mistakes in your codebase. It is designed to be fast, easy to use and integrate into your workflow - just like pint or pest.
+**Peck** is a powerful CLI tool designed to identify wording or spelling mistakes in your codebase. Built for speed, simplicity, and seamless integration, Peck fits naturally into your workflow, much like tools such as Pint or Pest.
 
-It relies on the [github.com/tigitz/php-spellchecker](https://github.com/tigitz/php-spellchecker) to detect spelling mistakes in your codebase, the goal to make it work with Folder names, file names, method names, comments, and more.
+Leveraging the robust capabilities of [github.com/tigitz/php-spellchecker](https://github.com/tigitz/php-spellchecker), Peck inspects every corner of your codebase — including folder names, file names, method names, comments, and beyond — ensuring your work maintains a high standard of clarity and professionalism.
 
-> **Note:** This project is still in development and not ready for production use. At the moment, only the filesystem checker is implemented and only detects spelling mistakes in file and folder names.
+> Note: Peck is still under active development and is not yet ready for production use. Currently, only the filesystem checker is implemented, focusing exclusively on detecting spelling mistakes in file and folder names.
 
 ## Installation
 
 > **Requires [PHP 8.3+](https://php.net/releases/)**
 
-Require Peck using [Composer](https://getcomposer.org):
+You can require Peck using [Composer](https://getcomposer.org) with the following command:
 
 ```bash
 composer require peckphp/peck
@@ -28,7 +28,7 @@ composer require peckphp/peck
 
 ## Usage
 
-To check your project for spelling mistakes, run the following command:
+To check your project for spelling mistakes, run:
 
 ```bash
 ./vendor/bin/peck
