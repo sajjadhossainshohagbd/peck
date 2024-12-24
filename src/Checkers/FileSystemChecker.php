@@ -33,6 +33,10 @@ readonly class FileSystemChecker implements Checker
     public function check(array $parameters): array
     {
         $filesOrDirectories = Finder::create()
+            ->ignoreDotFiles(true)
+            ->ignoreVCS(true)
+            ->ignoreUnreadableDirs()
+            ->ignoreVCSIgnored(true)
             ->in($parameters['directory'])
             ->getIterator();
 
