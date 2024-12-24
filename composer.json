@@ -43,6 +43,9 @@
             "pestphp/pest-plugin": true
         }
     },
+    "bin": [
+        "bin/peck"
+    ],
     "scripts": {
         "refacto": "rector",
         "lint": "pint",
