@@ -27,7 +27,9 @@ jobs:
         elif [[ "$RUNNER_OS" == "macOS" ]]; then
           brew install aspell
         elif [[ "$RUNNER_OS" == "Windows" ]]; then
-          pacman -S aspell
+          curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-0-50-3-3-Setup.exe -o aspell-installer.exe
+          powershell.exe 'Start-Process -Wait -FilePath .\aspell-installer.exe -Argument "/silent" -PassThru'
+          export PATH=$PATH:"/c/Program Files (x86)/Aspell/bin"
         fi
 
     - name: Setup PHP
