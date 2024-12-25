@@ -34,11 +34,12 @@ jobs:
 
           echo "C:\Program Files (x86)\Aspell\bin" >> $GITHUB_PATH
           echo "C:\Program Files (x86)\Aspell\dict" >> $GITHUB_PATH
+          ls -l 'C:\Program Files (x86)\Aspell\dict'
         fi
 
     - name: Test Aspell
       shell: bash
-      run: aspell --version; echo "This is a smaple text with some mispelled words" | aspell --encoding=utf-8 -a
+      run: ls -l 'C:\Program Files (x86)\Aspell\dict'; aspell --version; echo "This is a smaple text with some mispelled words" | aspell --encoding=utf-8 -a
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
