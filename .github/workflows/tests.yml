@@ -27,7 +27,7 @@ jobs:
         elif [[ "$RUNNER_OS" == "macOS" ]]; then
           brew install aspell
         elif [[ "$RUNNER_OS" == "Windows" ]]; then
-          choco install aspell
+          pacman -S aspell
         fi
 
     - name: Setup PHP
