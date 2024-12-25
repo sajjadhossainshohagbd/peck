@@ -34,7 +34,10 @@ jobs:
             $currentPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User);
             [Environment]::SetEnvironmentVariable("Path", $currentPath + ";C:\Program Files (x86)\Aspell\bin", [EnvironmentVariableTarget]::User);'
         fi
-        echo "This is a smaple text with some mispelled words" | aspell --encoding=utf-8 -a
+
+    - name: Test Aspell
+      shell: bash
+      run: aspell --version; echo "This is a smaple text with some mispelled words" | aspell --encoding=utf-8 -a
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
