@@ -61,7 +61,7 @@ class DefaultCommand extends Command
             <div class="mx-2 mb-1">
                 <div class="space-x-1">
                     <span class="bg-red text-white px-1 font-bold">ISSUE</span>
-                    <span>Misspelling detected in <strong>{$file}</strong>{$lineInfo}: '<strong>{$issue->misspelling->word}</strong>'</span>
+                    <span>Misspelling detected in <strong><a href="{$issue->file}">{$file}</a></strong>{$lineInfo}: '<strong>{$issue->misspelling->word}</strong>'</span>
                 </div>
 
                 <div class="space-x-1 text-gray-700">
