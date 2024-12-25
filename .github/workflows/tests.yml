@@ -30,9 +30,8 @@ jobs:
           powershell.exe 'curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-0-50-3-3-Setup.exe -o aspell-installer.exe;
             curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-en-0.50-2-3.exe -o aspell-en-dict.exe;
             Start-Process -Wait -FilePath .\aspell-installer.exe -Argument "/silent" -PassThru;
-            Start-Process -Wait -FilePath .\aspell-en-dict.exe -Argument "/silent" -PassThru;
-            $currentPath = [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User);
-            [Environment]::SetEnvironmentVariable("Path", $currentPath + ";C:\Program Files (x86)\Aspell\bin", [EnvironmentVariableTarget]::User);'
+            Start-Process -Wait -FilePath .\aspell-en-dict.exe -Argument "/silent" -PassThru;'
+          echo "C:\Program Files (x86)\Aspell\bin" >> $GITHUB_PATH
         fi
 
     - name: Test Aspell
