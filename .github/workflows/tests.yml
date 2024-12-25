@@ -30,8 +30,10 @@ jobs:
           powershell.exe 'curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-0-50-3-3-Setup.exe -o aspell-installer.exe;
             Start-Process -Wait -FilePath .\aspell-installer.exe -Argument "/silent" -PassThru;'
           powershell.exe 'curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-en-0.50-2-3.exe -o aspell-en-dict.exe;
-            Start-Process -Wait -FilePath .\aspell-en-dict.exe -Argument "/silent" -PassThru;'
+            Start-Process -Wait -FilePath .\aspell-en-dict.exe -Argument "/silent" -PassThru | Out-File aspell_en_dict_log.txt;'
 
+          echo "File Output:"
+          cat aspell_en_dict_log.txt
           ls -l 'C:\Program Files (x86)\Aspell'
           echo "C:\Program Files (x86)\Aspell\bin" >> $GITHUB_PATH
           echo "C:\Program Files (x86)\Aspell\dict" >> $GITHUB_PATH
