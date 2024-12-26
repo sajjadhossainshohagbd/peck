@@ -35,7 +35,6 @@ jobs:
           echo "C:\Program Files (x86)\Aspell\bin" >> $GITHUB_PATH
           echo "C:\Program Files (x86)\Aspell\dict" >> $GITHUB_PATH
         fi
-        aspell --version
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
