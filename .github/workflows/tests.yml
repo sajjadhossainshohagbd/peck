@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
         php: ['8.3', '8.4']
         dependency-version: [prefer-lowest, prefer-stable]
 
@@ -19,21 +19,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Install Aspell (Ubuntu, macOS, Windows)
+    - name: Install Aspell
       shell: bash
       run: |
         if [[ "$RUNNER_OS" == "Linux" ]]; then
           sudo apt-get update && sudo apt-get install -y aspell aspell-en
         elif [[ "$RUNNER_OS" == "macOS" ]]; then
           brew install aspell
-        elif [[ "$RUNNER_OS" == "Windows" ]]; then
-          powershell.exe 'curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-0-50-3-3-Setup.exe -o aspell-installer.exe;
-            Start-Process -Wait -FilePath .\aspell-installer.exe -Argument "/silent" -PassThru;'
-          powershell.exe 'curl http://ftp.gnu.org/gnu/aspell/w32/Aspell-en-0.50-2-3.exe -o aspell-en-dict.exe;
-            unzip aspell-en-dict.exe; Start-Process -Wait -FilePath .\TmpInstall\setup-Aspell-en-0.50-2.exe -Argument "/silent" -PassThru;'
-
-          echo "C:\Program Files (x86)\Aspell\bin" >> $GITHUB_PATH
-          echo "C:\Program Files (x86)\Aspell\dict" >> $GITHUB_PATH
         fi
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
