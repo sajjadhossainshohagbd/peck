@@ -28,14 +28,3 @@ $application->add(
 $application->setDefaultCommand('default');
 
 $application->run();
-
-
-
-
-
-
-
-
-
-
-
