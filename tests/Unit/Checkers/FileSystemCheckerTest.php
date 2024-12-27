@@ -3,9 +3,11 @@
 use Peck\Checkers\FileSystemChecker;
 use Peck\Config;
 use Peck\Services\Spellcheckers\InMemorySpellchecker;
+use PhpSpellcheck\Spellchecker\Aspell;
 
 it('does not detect issues in the given directory', function (): void {
     $checker = new FileSystemChecker(
+        Config::instance(),
         InMemorySpellchecker::default(),
     );
 
@@ -18,6 +20,7 @@ it('does not detect issues in the given directory', function (): void {
 
 it('detects issues in the given directory', function (): void {
     $checker = new FileSystemChecker(
+        Config::instance(),
         InMemorySpellchecker::default(),
     );
 
@@ -62,10 +65,16 @@ it('detects issues in the given directory', function (): void {
 });
 
 it('detects issues in the given directory, but ignores the whitelisted words', function (): void {
-    Config::addWhitelistedWord('ignroed');
+    $config = new Config(
+        whitelistedWords: ['Ignroed'],
+    );
 
     $checker = new FileSystemChecker(
-        InMemorySpellchecker::default(),
+        $config,
+        new InMemorySpellchecker(
+            $config,
+            Aspell::create(),
+        ),
     );
 
     $issues = $checker->check([
@@ -98,14 +107,13 @@ it('detects issues in the given directory, but ignores the whitelisted words', f
             'typos',
             'topi',
         ]);
-
-    Config::removeWhitelistedWord('ignroed');
 });
 
 it('detects issues in the given directory, but ignores the whitelisted directories', function (): void {
-    Config::addWhitelistedDirectory('FolderThatShouldBeIgnored');
-
     $checker = new FileSystemChecker(
+        new Config(
+            whitelistedDirectories: ['FolderThatShouldBeIgnored'],
+        ),
         InMemorySpellchecker::default(),
     );
 
@@ -139,6 +147,4 @@ it('detects issues in the given directory, but ignores the whitelisted directori
             'typos',
             'topi',
         ]);
-
-    Config::removeWhitelistedDirectory('FolderThatShouldBeIgnored');
 });

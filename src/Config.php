@@ -4,81 +4,47 @@ declare(strict_types=1);
 
 namespace Peck;
 
+use Composer\Autoload\ClassLoader;
+
 final class Config
 {
+    /**
+     * The instance of the configuration.
+     */
     private static ?self $instance = null;
 
     /**
-     * @var array<int, string>
+     * Creates a new instance of Config.
+     *
+     * @param  array<int, string>  $whitelistedWords
+     * @param  array<int, string>  $whitelistedDirectories
      */
-    public array $whitelistedWords;
-
-    /**
-     * @var array<int, string>
-     */
-    public array $whitelistedDirectories;
-
-    private function __construct()
-    {
-        $rootDir = getcwd();
-        /**
-         * @var string $json
-         */
-        $json = file_get_contents($rootDir.'/peck.json');
-
-        /**
-         * @var array<string, array<int, string>>
-         */
-        $config = json_decode($json, true);
-
-        $this->whitelistedWords = $config['whitelistedWords'] ?? [];
-        $this->whitelistedDirectories = $config['whitelistedDirectories'] ?? [];
+    public function __construct(
+        public array $whitelistedWords = [],
+        public array $whitelistedDirectories = [],
+    ) {
+        $this->whitelistedWords = array_map(fn (string $word): string => strtolower($word), $whitelistedWords);
     }
 
-    public static function getInstance(): self
+    /**
+     * Fetches the instance of the configuration.
+     */
+    public static function instance(): self
     {
-        if (! self::$instance instanceof \Peck\Config) {
-            self::$instance = new self;
+        if (self::$instance instanceof self) {
+            return self::$instance;
         }
 
-        return self::$instance;
-    }
+        $basePath = dirname(array_keys(ClassLoader::getRegisteredLoaders())[0]);
 
-    /**
-     * @return array<int, string>
-     */
-    public static function get(string $key): array
-    {
-        $instance = self::getInstance();
+        $contents = (string) file_get_contents($basePath.'/peck.json');
 
-        return $instance->$key;
-    }
+        /** @var array{whitelistedWords?: array<int, string>, whitelistedDirectories?: array<int, string>} $jsonAsArray */
+        $jsonAsArray = json_decode($contents, true) ?: [];
 
-    public static function addWhitelistedWord(string $word): void
-    {
-        $instance = self::getInstance();
-
-        $instance->whitelistedWords[] = $word;
-    }
-
-    public static function removeWhitelistedWord(string $word): void
-    {
-        $instance = self::getInstance();
-
-        $instance->whitelistedWords = array_filter($instance->whitelistedWords, fn ($w): bool => $w !== $word);
-    }
-
-    public static function addWhitelistedDirectory(string $directory): void
-    {
-        $instance = self::getInstance();
-
-        $instance->whitelistedDirectories[] = $directory;
-    }
-
-    public static function removeWhitelistedDirectory(string $directory): void
-    {
-        $instance = self::getInstance();
-
-        $instance->whitelistedDirectories = array_filter($instance->whitelistedDirectories, fn ($d): bool => $d !== $directory);
+        return self::$instance = new self(
+            $jsonAsArray['whitelistedWords'] ?? [],
+            $jsonAsArray['whitelistedDirectories'] ?? [],
+        );
     }
 }

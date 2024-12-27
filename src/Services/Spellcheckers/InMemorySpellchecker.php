@@ -16,6 +16,7 @@ final readonly class InMemorySpellchecker implements Spellchecker
      * Creates a new instance of Spellchecker.
      */
     public function __construct(
+        private Config $config,
         private Aspell $aspell,
     ) {
         //
@@ -27,6 +28,7 @@ final readonly class InMemorySpellchecker implements Spellchecker
     public static function default(): self
     {
         return new self(
+            Config::instance(),
             Aspell::create(),
         );
     }
@@ -54,6 +56,9 @@ final readonly class InMemorySpellchecker implements Spellchecker
      */
     public function filterWhitelistedWords(array $misspellings): array
     {
-        return array_filter($misspellings, fn (MisspellingInterface $misspelling): bool => ! in_array($misspelling->getWord(), Config::get('whitelistedWords')));
+        return array_filter($misspellings, fn (MisspellingInterface $misspelling): bool => ! in_array(
+            strtolower($misspelling->getWord()),
+            $this->config->whitelistedWords
+        ));
     }
 }

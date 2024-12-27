@@ -25,11 +25,12 @@ final readonly class Kernel
      */
     public static function default(): self
     {
+        $config = Config::instance();
         $inMemoryChecker = InMemorySpellchecker::default();
 
         return new self(
             [
-                new FileSystemChecker($inMemoryChecker),
+                new FileSystemChecker($config, $inMemoryChecker),
             ],
         );
     }

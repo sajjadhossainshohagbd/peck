@@ -20,6 +20,7 @@ readonly class FileSystemChecker implements Checker
      * Creates a new instance of FsChecker.
      */
     public function __construct(
+        private Config $config,
         private Spellchecker $spellchecker,
     ) {
         //
@@ -34,7 +35,7 @@ readonly class FileSystemChecker implements Checker
     public function check(array $parameters): array
     {
         $filesOrDirectories = Finder::create()
-            ->notPath(Config::get('whitelistedDirectories'))
+            ->notPath($this->config->whitelistedDirectories)
             ->ignoreDotFiles(true)
             ->ignoreVCS(true)
             ->ignoreUnreadableDirs()
