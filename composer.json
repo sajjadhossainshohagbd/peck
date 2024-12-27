@@ -57,7 +57,7 @@
         "test": [
             "@test:refacto",
             "@test:lint",
-            "@test:types", // pypo (typo)
+            "@test:types",
             "@test:typos",
             "@test:unit"
         ]
