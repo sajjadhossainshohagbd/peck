@@ -39,12 +39,17 @@ final class Config
 
         $contents = (string) file_get_contents($basePath.'/peck.json');
 
-        /** @var array{whitelistedWords?: array<int, string>, whitelistedDirectories?: array<int, string>} $jsonAsArray */
+        /** @var array{
+         *     ignore?: array{
+         *         words?: array<int, string>,
+         *         directories?: array<int, string>
+         *     }
+         *  } $jsonAsArray */
         $jsonAsArray = json_decode($contents, true) ?: [];
 
         return self::$instance = new self(
-            $jsonAsArray['whitelistedWords'] ?? [],
-            $jsonAsArray['whitelistedDirectories'] ?? [],
+            $jsonAsArray['ignore']['words'] ?? [],
+            $jsonAsArray['ignore']['directories'] ?? [],
         );
     }
 }

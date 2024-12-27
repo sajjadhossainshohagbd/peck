@@ -1,6 +1,8 @@
 {
-    "whitelistedWords": [
-        "config"
-    ],
-    "whitelistedDirectories": []
+    "ignore": {
+        "words": [
+            "config"
+        ],
+        "directories": []
+    }
 }
