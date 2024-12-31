@@ -1,7 +1,13 @@
 {
     "ignore": {
         "words": [
-            "config"
+            "config",
+            "aspell",
+            "args",
+            "namespace",
+            "doc",
+            "bool",
+            "php"
         ],
         "directories": []
     }
