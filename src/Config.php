@@ -23,7 +23,7 @@ final class Config
         public array $whitelistedWords = [],
         public array $whitelistedDirectories = [],
     ) {
-        $this->whitelistedWords = array_map(fn (string $word): string => strtolower($word), $whitelistedWords);
+        $this->whitelistedWords = array_map(fn(string $word): string => strtolower($word), $whitelistedWords);
     }
 
     /**
@@ -37,7 +37,13 @@ final class Config
 
         $basePath = dirname(array_keys(ClassLoader::getRegisteredLoaders())[0]);
 
-        $contents = (string) file_get_contents($basePath.'/peck.json');
+        $peckJsonPath = $basePath . '/peck.json';
+        
+        if (!file_exists($peckJsonPath)) {
+            throw new \RuntimeException('peck.json file does not exist at ' . $basePath);
+        }
+
+        $contents = (string) file_get_contents($basePath . '/peck.json');
 
         /** @var array{
          *     ignore?: array{
